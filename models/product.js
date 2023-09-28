@@ -11,7 +11,10 @@ module.exports = class Product {
   }
 
   save() {
-
+    return db.execute(       //returns the promise that execute yields
+      'INSERT INTO products (title,price,imageUrl,description) VALUES (?,?,?,?)',
+      [this.title, this.price, this.imageUrl, this.description]
+    );
   }
 
   static deleteById(id) {
@@ -19,7 +22,7 @@ module.exports = class Product {
   }
 
   static fetchAll() {
-    return db.execute("SELECT * FROM products"); //returns a promise
+    return db.execute("SELECT * FROM products"); //returns the promise that execute yields
   }
 
   static findById(id, cb) {
